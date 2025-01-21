@@ -10,6 +10,6 @@ data "aws_vpc" "default" {
   default = true
 }
 
-data "vpc-06dded31d0d4f306b" "all" {
+data "aws_subnet_ids" "all" {
   vpc_id = data.aws_vpc.default.id
 }
