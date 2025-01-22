@@ -174,12 +174,12 @@ module "db_sg" {
 
 module "db" {
   source  = "terraform-aws-modules/rds/aws"
-  version = "~> 2.0"
+  version = "6.10.0"
 
   identifier = "hello-world-db-postgres"
 
   engine                       = "postgres"
-  engine_version               = "13"
+  engine_version               = "16"
   instance_class               = "db.t3.micro"
   allocated_storage            = 20
   storage_encrypted            = true
