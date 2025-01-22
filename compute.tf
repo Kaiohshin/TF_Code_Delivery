@@ -1,23 +1,13 @@
 # Docker Instance
-data "aws_ami" "docker_instance" {
-    most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["amazon/amzn2-ami-kernel-5.10-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["137112412989"] # Amazon
+resource "aws_instance" "docker_instance" {
+  ami                    = "ami-0ebfd941bbafe70c6"
+  instance_type          = var.docker_instance
+  vpc_security_group_ids = [aws_security_group.docker_sg.id]
 
   #User Data in AWS EC2
   user_data = file("docker_install.sh")
 
   tags = {
-    Name = "Docker"
+    Name = "Docker Python Flask"
   }
 }
