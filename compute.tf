@@ -13,7 +13,6 @@ resource "aws_instance" "docker_instance" {
   }
 
   owners = ["137112412989"] # Amazon
-}
 
   #User Data in AWS EC2
   user_data = file("docker_install.sh")
