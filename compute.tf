@@ -32,6 +32,9 @@ resource "aws_instance" "docker_instance" {
   ami           = "ami-053a862cc72bed182"
   instance_type = var.docker_instance
 
+#User Data in AWS EC2
+  user_data = file("docker_install.sh")
+
   tags = {
     Name = "Docker"
   }

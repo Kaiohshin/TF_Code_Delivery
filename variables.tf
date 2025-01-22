@@ -8,7 +8,7 @@ variable "region" {
 variable "docker_instance" {
   description = "Instance type for Docker"
   type        = string
-  default     = "t2.micro"
+  default     = "t3.micro"
 }
 
 # Variable for VPC ID
