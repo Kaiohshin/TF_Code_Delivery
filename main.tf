@@ -3,10 +3,6 @@ provider "aws" {
   region = "eu-north-1"
 }
 
-terraform {
-  required_version = ">= 1"
-}
-
 data "aws_vpc" "default" {
   default = true
 }
