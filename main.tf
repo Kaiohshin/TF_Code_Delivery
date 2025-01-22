@@ -11,16 +11,22 @@ data "aws_vpc" "default" {
   default = true
 }
 
-data "aws_subnet_ids" "all" {
-  vpc_id = data.aws_vpc.default.id
-}
+data "ws_subnet_ids" "all" {
+  filter {
+    name = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
 
+  tags = {
+    Private = true
+  }
+}
 ### ECR
 
 resource "aws_ecr_repository" "hello-world" {
   name                 = "hello-world"
   image_tag_mutability = "MUTABLE"
-
+  
   tags = {
     project = "hello-world"
   }
