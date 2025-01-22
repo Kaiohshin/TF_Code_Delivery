@@ -12,7 +12,7 @@
 #  }
 #}
 
-data "aws_ami" "ubuntu" {
+data "aws_ami" "app_ami" {
   most_recent = true
 
   filter {
