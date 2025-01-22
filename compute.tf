@@ -1,5 +1,5 @@
 # Docker Instance
-data "aws_instance" "docker_instance" {
+data "aws_ami" "docker_instance" {
     most_recent = true
 
   filter {
