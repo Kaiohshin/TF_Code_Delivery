@@ -157,6 +157,7 @@ resource "aws_instance" "web" {
 
 module "db_sg" {
   source = "terraform-aws-modules/security-group/aws"
+  version = "5.3.0"
 
   name        = "db_sg"
   description = "Security group for db_sg"
@@ -179,7 +180,7 @@ module "db" {
   identifier = "hello-world-db-postgres"
 
   engine                       = "postgres"
-  engine_version               = "16"
+  engine_version               = "16.3"
   instance_class               = "db.t3.micro"
   allocated_storage            = 20
   storage_encrypted            = true
@@ -205,8 +206,8 @@ module "db" {
 
   subnet_ids = data.aws_subnet_ids.all.ids
 
-  family                    = "postgres13"
-  major_engine_version      = "13"
+  family                    = "postgres16"
+  major_engine_version      = "16.3"
   final_snapshot_identifier = "hello-world-db-postgres"
   deletion_protection       = false
 
