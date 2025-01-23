@@ -8,7 +8,7 @@ terraform {
 }
 
 resource "aws_s3_bucket" "bucket" {
-  bucket = "TF-docker-compose-test1" // Enter Bucket Name
+  bucket = "tf-docker-compose-test1" // Enter Bucket Name
 
   tags = {
     Name        = "S3 bucket"
