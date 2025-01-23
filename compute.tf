@@ -29,7 +29,7 @@ resource "aws_instance" "docker_instance" {
 #}
 #
 #resource "aws_instance" "docker_instance" {
-#  ami           = "ami-053a862cc72bed182"
+#  ami           = "aapp_ami"
 #  instance_type = var.docker_instance
 #
 #User Data in AWS EC2
