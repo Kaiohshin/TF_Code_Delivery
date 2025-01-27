@@ -2,7 +2,7 @@
 resource "aws_security_group" "docker_sg" {
   name        = var.security_group_name
   description = "Allow inbound traffic, SSH"
-  vpc_id      = module.blog_vpc
+  vpc_id      = module.blog_vpc.default_vpc_id
 
   ingress {
     description = "Allow all HTTPS"
