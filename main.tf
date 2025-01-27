@@ -18,8 +18,8 @@ module "container-server" {
   source  = "christippett/container-server/cloudinit"
   version = "~> 1.2"
 
-  # domain = "example.com"
-  # email  = "me@example.com"
+  domain = "example.com"
+  email  = "me@example.com"
 
   files = [
     {
