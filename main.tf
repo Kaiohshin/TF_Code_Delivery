@@ -14,6 +14,21 @@ module "docker_vpc" {
   }
 }
 
+module "container-server" {
+  source  = "christippett/container-server/cloudinit"
+  version = "~> 1.2"
+
+  # domain = "example.com"
+  # email  = "me@example.com"
+
+  files = [
+    {
+      filename = "docker-compose.yaml"
+      content  = filebase64("docker-compose.yaml")
+    }
+  ]
+}
+
 # Docker Instance
 resource "aws_instance" "docker_instance" {
   ami                    = "ami-053a862cc72bed182"
@@ -27,7 +42,8 @@ resource "aws_instance" "docker_instance" {
   iam_instance_profile = aws_iam_instance_profile.s3-tf-docker-role-instanceprofile.name
 
   # User Data in AWS EC2
-  user_data = file("docker_install.sh")
+  # user_data = file("docker_install.sh")
+  user_data = module.container-server.cloud_config
 
   tags = {
     Name = "Docker"
