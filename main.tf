@@ -1,5 +1,5 @@
 # VPC
-module "blog_vpc" {
+module "docker_vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
   name = var.environment.name
@@ -20,7 +20,10 @@ resource "aws_instance" "docker_instance" {
   instance_type          = var.docker_instance
   vpc_security_group_ids = [aws_security_group.docker_sg.id]
 
-  #User Data in AWS EC2
+  # Role
+  iam_instance_profile = aws_iam_instance_profile.s3-tf-docker-role-instanceprofile.name
+
+  # User Data in AWS EC2
   user_data = file("docker_install.sh")
 
   tags = {
@@ -30,9 +33,10 @@ resource "aws_instance" "docker_instance" {
 
 resource "aws_s3_bucket" "bucket" {
   bucket = "tf-docker-compose-test1" // Enter Bucket Name
+  acl    = "private"
 
   tags = {
-    Name        = "S3 bucket"
+    Name        = "tf-docker-compose-test1"
   }
 }
 

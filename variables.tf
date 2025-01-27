@@ -4,9 +4,9 @@ variable "region" {
   default     = "eu-north-1"
 }
 
-# Variable for instance type of Docker
+# Variable for instance type of EC2
 variable "docker_instance" {
-  description = "Instance type for Docker"
+  description = "Instance type of EC2"
   type        = string
   default     = "t3.micro"
 }
@@ -38,4 +38,12 @@ variable "environment" {
   name           = "dev"
   network_prefix = "10.0"
   }
+}
+
+variable "PATH_TO_PRIVATE_KEY" {
+  default = "docker-key"
+}
+
+variable "PATH_TO_PUBLIC_KEY" {
+  default = "docker-key.pub"
 }
