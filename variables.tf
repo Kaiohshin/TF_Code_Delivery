@@ -44,6 +44,6 @@ variable "PATH_TO_PRIVATE_KEY" {
   default = "docker-key"
 }
 
-# variable "PATH_TO_PUBLIC_KEY" {
-#   default = "docker-key.pub"
-# }
+variable "PATH_TO_PUBLIC_KEY" {
+  default = "docker-key.pub"
+}
