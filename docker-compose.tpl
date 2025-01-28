@@ -14,4 +14,5 @@ runcmd:
  - sudo systemctl start docker
  - sudo systemctl enable docker
  - sudo chkconfig docker on
+ - sudo chown $(whoami):$(whoami) /var/run/docker.sock
  - sudo docker-compose -f /opt/docker-compose.yml up -d
