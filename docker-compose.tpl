@@ -7,7 +7,6 @@ write_files:
               image: alpine:latest
    path: /opt/docker-compose.yml
 runcmd:
- - #!/bin/sh
  - sudo yum update -y
  - sudo yum install -y docker
  - sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
