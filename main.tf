@@ -36,7 +36,7 @@ data "cloudinit_config" "docker_install" {
   part {
     content_type = "text/cloud-config"
     filename     = "docker-compose.yaml"
-    content      = local.cloud_config_config
+    # content      = local.cloud_config_conf
   }
 
   part {
