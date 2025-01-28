@@ -28,6 +28,9 @@ module "docker_vpc" {
 #     }
 #   ]
 # }
+data "template_file" "docker-compose" {
+    template = "${file("docker-compose.tpl")}"
+}
 
 # Docker Instance
 resource "aws_instance" "docker_instance" {
@@ -42,8 +45,8 @@ resource "aws_instance" "docker_instance" {
   iam_instance_profile = aws_iam_instance_profile.s3-tf-docker-role-instanceprofile.name
 
   # User Data in AWS EC2
-  user_data = file("docker_install.sh")
-
+  # user_data = file("docker_install.sh")
+  user_data = "${data.template_file.docker-compose.rendered}"
   # user_data = module.container-server.cloud_config
 
   tags = {
