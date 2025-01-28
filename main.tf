@@ -14,19 +14,43 @@ module "docker_vpc" {
   }
 }
 
-module "container-server" {
-  source  = "christippett/container-server/cloudinit"
-  version = "~> 1.2"
+# module "container-server" {
+#   source  = "christippett/container-server/cloudinit"
+#   version = "~> 1.2"
 
-  domain = "example.com"
-  email  = "me@example.com"
+#   domain = "example.com"
+#   email  = "me@example.com"
 
-  files = [
-    {
-      filename = "docker-compose.yaml"
-      content  = filebase64("docker-compose.yaml")
-    }
-  ]
+#   files = [
+#     {
+#       filename = "docker-compose.yaml"
+#       content  = filebase64("docker-compose.yaml")
+#     }
+#   ]
+# }
+
+data "cloudinit_config" "docker_install" {
+  gzip          = false
+  base64_encode = false
+
+  part {
+    content_type = "text/cloud-config"
+    filename     = "docker-compose.yaml"
+    content      = local.cloud_config_config
+  }
+
+  part {
+    content_type = "text/x-shellscript"
+    filename     = "docker_install.sh"
+    content  = <<-EOF
+      #!/bin/sh
+      sudo yum update -y
+      sudo yum install -y docker
+      sudo systemctl start docker
+      sudo systemctl enable docker
+      sudo docker-compose -f docker-compose.yml
+    EOF
+  }
 }
 
 # Docker Instance
@@ -42,8 +66,8 @@ resource "aws_instance" "docker_instance" {
   iam_instance_profile = aws_iam_instance_profile.s3-tf-docker-role-instanceprofile.name
 
   # User Data in AWS EC2
-  # user_data = file("docker_install.sh")
-  user_data = module.container-server.cloud_config
+  user_data = file("docker_install.sh")
+  # user_data = module.container-server.cloud_config
 
   tags = {
     Name = "Docker"
