@@ -40,10 +40,6 @@ resource "aws_instance" "docker_instance" {
 
   # Role
   iam_instance_profile = aws_iam_instance_profile.s3-tf-docker-role-instanceprofile.name
-  provisioner "file" {
-    source      = "docker-compose.yaml"
-    destination = "/etc/docker-compose.yaml"
-  }
 
   # User Data in AWS EC2
   user_data = file("docker_install.sh")
