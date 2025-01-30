@@ -14,20 +14,6 @@ module "docker_vpc" {
   }
 }
 
-# module "container-server" {
-#   source  = "christippett/container-server/cloudinit"
-#   version = "~> 1.2"
-
-#   domain = "example.com"
-#   email  = "me@example.com"
-
-#   files = [
-#     {
-#       filename = "docker-compose.yaml"
-#       content  = filebase64("docker-compose.yaml")
-#     }
-#   ]
-# }
 data "template_file" "docker-compose" {
     template = "${file("docker-compose.tpl")}"
 }
@@ -80,31 +66,3 @@ module "dynamodb_table" {
     Environment = "staging"
   }
 }
-
-#data "aws_ami" "app_ami" {
-#  most_recent = true
-#
-#  filter {
-#    name   = "name"
-#    values = ["amzn2-ami-kernel-5.10-hvm-*"]
-#  }#
-#
-#  filter {
-#    name   = "virtualization-type"
-#    values = ["hvm"]
-#  }
-#
-#  owners = ["137112412989"] # Amazon
-#}
-#
-#resource "aws_instance" "docker_instance" {
-#  ami           = "aapp_ami"
-#  instance_type = var.docker_instance
-#
-#User Data in AWS EC2
-#  user_data = file("docker_install.sh")
-#
-#  tags = {
-#    Name = "Docker"
-#  }
-#}
