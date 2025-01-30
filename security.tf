@@ -21,9 +21,9 @@ resource "aws_security_group" "docker_sg" {
   }
 
   ingress {
-    description = "Allow all SSH"
-    from_port   = 22
-    to_port     = 22
+    description = "Allow app port"
+    from_port   = 3000
+    to_port     = 3000
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
