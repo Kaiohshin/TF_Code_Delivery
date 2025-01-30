@@ -53,7 +53,7 @@ resource "aws_iam_role_policy" "s3-tf-docker-role-policy" {
 EOF
 }
 
-data "aws_iam_policy_document" "example" {
+data "aws_iam_policy_document" "ecr-tf-docker-role-policy" {
   statement {
     sid    = "new policy"
     effect = "Allow"
@@ -81,7 +81,7 @@ data "aws_iam_policy_document" "example" {
     ]
   }
 }
-resource "aws_ecrpublic_repository_policy" "example" {
-  repository_name = aws_ecrpublic_repository.example.repository_name
-  policy          = data.aws_iam_policy_document.example.json
+resource "aws_ecrpublic_repository_policy" "ecr_repo_name" {
+  repository_name = aws_ecrpublic_repository.ecr_repo_name.repository_arn
+  policy          = data.aws_iam_policy_document.ecr_repo_policy.json
 }

@@ -5,3 +5,7 @@ output "instance" {
 output "repository_url" {
   value = aws_ecr_repository.docker_ecr_repo.repository_url
 }
+
+output "repository_arn" {
+  value = aws_ecr_repository.docker_ecr_repo.arn
+}
