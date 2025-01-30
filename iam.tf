@@ -81,7 +81,7 @@ resource "aws_iam_role_policy" "ecr-tf-docker-role-policy" {
                 "ecr:PutImage"
             ],
             "Resource": [
-              "arn:aws:s3:::tf-docker-compose-test1"
+              "arn:aws:ecr:eu-north-1:992382655760:repository/docker_ecr_repo"
             ]
         }
     ]
