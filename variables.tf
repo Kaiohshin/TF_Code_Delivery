@@ -37,6 +37,7 @@ variable "environment" {
 variable "ecr_repo_name" {
   description = "ECR Repo Name"
   type        = string
+  default     = docker_ecr_repo
 }
 
 variable "PATH_TO_PRIVATE_KEY" {
