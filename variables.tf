@@ -11,13 +11,6 @@ variable "docker_instance" {
   default     = "t3.micro"
 }
 
-# # Variable for VPC ID
-# variable "vpc_id" {
-#   description = "ID of the VPC"
-#   type        = string
-#   default     = "vpc-06dded31d0d4f306b"
-# }
-
 # Variable for security group name of Docker
 variable "security_group_name" {
   description = "Docker security group name"
@@ -38,6 +31,12 @@ variable "environment" {
   name           = "dev"
   network_prefix = "10.0"
   }
+}
+
+# Variable for ECR
+variable "ecr_repo_name" {
+  description = "ECR Repo Name"
+  type        = string
 }
 
 variable "PATH_TO_PRIVATE_KEY" {

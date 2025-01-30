@@ -40,11 +40,24 @@ resource "aws_instance" "docker_instance" {
   }
 }
 
+resource "aws_ecr_repository" "docker_ecr_repo" {
+  name = var.ecr_repo_name
+}
+
 resource "aws_s3_bucket" "bucket" {
   bucket = "tf-docker-compose-test1" // Enter Bucket Name
 
   tags = {
     Name        = "tf-docker-compose-test1"
+  }
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "terraform_state_crypto_conf" {
+  bucket = aws_s3_bucket.terraform_state.bucket
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
   }
 }
 
