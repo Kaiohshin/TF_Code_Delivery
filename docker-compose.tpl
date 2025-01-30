@@ -5,7 +5,7 @@ write_files:
         services:
             alpine:
               image: 992382655760.dkr.ecr.eu-north-1.amazonaws.com/docker_ecr_repo:latest
-            port: 
+            ports: 
               - 3000
    path: /opt/docker-compose.yml
 runcmd:
