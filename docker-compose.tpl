@@ -4,7 +4,7 @@ write_files:
         version: '3'
         services:
             alpine:
-              image: alpine:latest
+              image: 992382655760.dkr.ecr.eu-north-1.amazonaws.com/docker_ecr_repo:latest
    path: /opt/docker-compose.yml
 runcmd:
  - sudo yum update -y
