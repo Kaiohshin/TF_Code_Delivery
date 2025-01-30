@@ -18,7 +18,7 @@ EOF
 
 }
 
-resource "aws_iam_instance_profile" "tf-docker-role-instanceprofile" {
+resource "aws_iam_instance_profile" "tf-docker-role" {
   name = "tf-docker-role"
   role = aws_iam_role.tf-docker-role.name
 }

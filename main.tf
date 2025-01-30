@@ -28,7 +28,7 @@ resource "aws_instance" "docker_instance" {
   key_name = aws_key_pair.docker-key.key_name
 
   # Role
-  iam_instance_profile = aws_iam_instance_profile.s3-tf-docker-role-instanceprofile.name
+  iam_instance_profile = aws_iam_instance_profile.tf-docker-role.name
 
   # User Data in AWS EC2
   # user_data = file("docker_install.sh")
