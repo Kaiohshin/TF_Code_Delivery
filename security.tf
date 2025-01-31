@@ -1,6 +1,6 @@
 # Security group for Docker Instance
 resource "aws_security_group" "docker_sg" {
-  name        = var.security_group_name
+  name        = docker_sg
   description = "Allow inbound traffic, SSH"
   vpc_id      = module.docker_vpc.default_vpc_id
 
