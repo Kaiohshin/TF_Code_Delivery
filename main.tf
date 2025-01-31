@@ -64,7 +64,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "terraform_crypto_
 module "dynamodb_table" {
   source   = "terraform-aws-modules/dynamodb-table/aws"
 
-  name     = "tf-docker-table"
+  name     = "docker_dydb"
   hash_key = "id"
 
   attributes = [
