@@ -62,9 +62,6 @@ resource "aws_instance" "docker_instance" {
   instance_type          = var.docker_instance
   vpc_security_group_ids = [aws_security_group.docker_sg.id]
 
-  # SSH key
-  key_name = aws_key_pair.docker-key.key_name
-
   # Role
   iam_instance_profile = aws_iam_instance_profile.tf-docker-role.name
 

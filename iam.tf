@@ -17,6 +17,11 @@ resource "aws_iam_role" "tf-docker-role" {
 EOF
 }
 
+resource "aws_iam_role_policy_attachment" "test-attach" {
+  policy_arn = data.aws_iam_policy.ssm_core.arn
+  role       = aws_iam_role.tf-docker-role.name
+}
+
 resource "aws_iam_instance_profile" "tf-docker-role" {
   name = "tf-docker-role"
   role = aws_iam_role.tf-docker-role.name
