@@ -58,7 +58,7 @@ module "dynamodb_table" {
 
 # EC2 Instance
 resource "aws_instance" "docker_instance" {
-  ami                    = data.aws_ssm_parameters_by_path.ami.id
+  ami                    = data.aws_ssm_parameters_by_path.ami.values[0]
   instance_type          = var.docker_instance
   vpc_security_group_ids = [aws_security_group.docker_sg.id]
 
