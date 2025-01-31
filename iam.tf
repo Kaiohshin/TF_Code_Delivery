@@ -123,7 +123,7 @@ resource "aws_iam_role_policy" "dydb-tf-docker-role-policy" {
                 "dynamodb:Update*",
                 "dynamodb:PutItem"
             ],
-            "Resource": "arn:aws:dynamodb:*:*:table/MyTable"
+            "Resource": "arn:aws:dynamodb:*:*:table/docker_dydb"
         }
     ]
 }
