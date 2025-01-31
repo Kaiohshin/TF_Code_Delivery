@@ -30,7 +30,7 @@ variable "ami_filter" {
 variable "security_group_name" {
   description = "Docker security group name"
   type        = string
-  default     = "Docker-security-group"
+  default     = "docker_sg"
 }
 
 # Variable for Environment
