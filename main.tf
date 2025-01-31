@@ -2,11 +2,14 @@
 module "docker_vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
-  name = var.environment.name
-  cidr = "${var.environment.network_prefix}.0.0/16"
+  name            = var.environment.name
+  cidr            = var.cidr
+  azs             = var.azs
+  public_subnets  = var.public_subnets
+  # cidr = "${var.environment.network_prefix}.0.0/16"
 
-  azs             = ["eu-north-1a", "eu-north-1b", "eu-north-1c"]
-  public_subnets  = ["${var.environment.network_prefix}.101.0/24", "${var.environment.network_prefix}.102.0/24", "${var.environment.network_prefix}.103.0/24"]
+  # azs             = ["eu-north-1a", "eu-north-1b", "eu-north-1c"]
+  # public_subnets  = ["${var.environment.network_prefix}.101.0/24", "${var.environment.network_prefix}.102.0/24", "${var.environment.network_prefix}.103.0/24"]
 
   tags = {
     Terraform = "true"

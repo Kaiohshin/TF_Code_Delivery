@@ -3,6 +3,20 @@ variable "region" {
   description = "AWS region"
   default     = "eu-north-1"
 }
+variable "cidr" {
+  default = "10.0.0.0/16"
+  type    = string
+}
+
+variable "public_subnets" {
+  default = ["10.0.101.0/24","10.0.102.0/24","10.0.103.0/24"]
+  type    = list(string)
+}
+
+variable "azs" {
+  default = ["eu-north-1a","eu-north-1b","eu-north-1c"]
+  type    = list(string)
+}
 
 # Variable for instance type of EC2
 variable "docker_instance" {
