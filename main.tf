@@ -18,7 +18,7 @@ data "template_file" "docker-compose" {
     template = "${file("docker-compose.tpl")}"
 }
 
-# Docker Instance
+# EC2 Instance
 resource "aws_instance" "docker_instance" {
   ami                    = "ami-053a862cc72bed182"
   instance_type          = var.docker_instance
@@ -31,21 +31,21 @@ resource "aws_instance" "docker_instance" {
   iam_instance_profile = aws_iam_instance_profile.tf-docker-role.name
 
   # User Data in AWS EC2
-  # user_data = file("docker_install.sh")
   user_data = "${data.template_file.docker-compose.rendered}"
-  # user_data = module.container-server.cloud_config
 
   tags = {
     Name = "Docker"
   }
 }
 
+# ECR
 resource "aws_ecr_repository" "docker_ecr_repo" {
   name = var.ecr_repo_name
 }
 
+# S3 Bucket
 resource "aws_s3_bucket" "bucket" {
-  bucket = "tf-docker-compose-test1" // Enter Bucket Name
+  bucket = "tf-docker-compose-test1"
 
   tags = {
     Name        = "tf-docker-compose-test1"
@@ -61,6 +61,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "terraform_crypto_
   }
 }
 
+# DynamoDB
 module "dynamodb_table" {
   source   = "terraform-aws-modules/dynamodb-table/aws"
 
@@ -76,6 +77,6 @@ module "dynamodb_table" {
 
   tags = {
     Terraform   = "true"
-    Environment = var.environment
+    Environment = var.environment.name
   }
 }

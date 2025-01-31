@@ -11,5 +11,5 @@ output "repository_arn" {
 }
 
 output "dynamodb_table_arn" {
-  value = dynamodb_table.docker_dydb.arn
+  value = dynamodb_table_arn.dydb_name
 }
