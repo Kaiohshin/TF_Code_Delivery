@@ -107,7 +107,7 @@ module "docker_autoscaling" {
   max_size            = 1
   vpc_zone_identifier = module.docker_vpc.public_subnets
   target_group_arns   = module.docker_alb.target_group_arns
-  security_groups     = [aws_security_group.docker_sg.id]
+  security_groups     = [var.docker_sg.id]
   instance_type       = var.docker_instance
   image_id            = "ami-053a862cc72bed182"
 
@@ -126,7 +126,7 @@ module "docker_alb" {
 
   vpc_id             = module.docker_vpc.vpc_id
   subnets            = module.docker_vpc.public_subnets
-  security_groups    = [aws_security_group.docker_sg.id]
+  security_groups    = [var.docker_sg.id]
 
   target_groups = [
     {
