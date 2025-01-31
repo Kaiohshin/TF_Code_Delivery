@@ -27,7 +27,7 @@ variable "ami_filter" {
 }
 
 # Variable for security group name of Docker
-variable "security_group_name" {
+variable "docker_sg" {
   description = "Docker security group name"
   type        = string
   default     = "docker_sg"
