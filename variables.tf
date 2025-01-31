@@ -9,12 +9,12 @@ variable "cidr" {
 }
 
 variable "public_subnets" {
-  default = ["10.0.101.0/24","10.0.102.0/24","10.0.103.0/24"]
+  default = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
   type    = list(string)
 }
 
 variable "azs" {
-  default = ["eu-north-1a","eu-north-1b","eu-north-1c"]
+  default = ["eu-north-1a", "eu-north-1b", "eu-north-1c"]
   type    = list(string)
 }
 
@@ -40,10 +40,10 @@ variable "environment" {
     name           = string
     network_prefix = string
   })
-  
+
   default = {
-  name           = "dev"
-  network_prefix = "10.0"
+    name           = "dev"
+    network_prefix = "10.0"
   }
 }
 

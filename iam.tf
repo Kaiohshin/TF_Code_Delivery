@@ -23,8 +23,8 @@ resource "aws_iam_instance_profile" "tf-docker-role" {
 }
 
 resource "aws_iam_role_policy" "s3-tf-docker-role-policy" {
-  name = "s3-tf-docker-role-policy"
-  role = aws_iam_role.tf-docker-role.id
+  name   = "s3-tf-docker-role-policy"
+  role   = aws_iam_role.tf-docker-role.id
   policy = <<EOF
 {
     "Version": "2012-10-17",
@@ -53,8 +53,8 @@ EOF
 }
 
 resource "aws_iam_role_policy" "ecr-tf-docker-role-policy" {
-  name = "ecr-tf-docker-role-policy"
-  role = aws_iam_role.tf-docker-role.id
+  name   = "ecr-tf-docker-role-policy"
+  role   = aws_iam_role.tf-docker-role.id
   policy = <<EOF
 {
     "Version": "2012-10-17",
@@ -89,8 +89,8 @@ EOF
 }
 
 resource "aws_iam_role_policy" "dydb-tf-docker-role-policy" {
-  name = "dydb-tf-docker-role-policy"
-  role = aws_iam_role.tf-docker-role.id
+  name   = "dydb-tf-docker-role-policy"
+  role   = aws_iam_role.tf-docker-role.id
   policy = <<EOF
 {
     "Version": "2012-10-17",
