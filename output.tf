@@ -3,7 +3,7 @@
 # }
 
 output "dns_alb" {
-  value = docker_alb.dns_name
+  value = module.docker_alb.lb_dns_name
 }
 output "repository_url" {
   value = aws_ecr_repository.docker_ecr_repo.repository_url
