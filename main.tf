@@ -32,10 +32,10 @@ module "docker_vpc" {
 
 module "docker_sg" {
   source  = "terraform-aws-modules/security-group/aws"
-  version = "4.13.0"
+  version = "5.3.0"
 
   vpc_id  = module.docker_vpc.vpc_id
-  name    = "docker"
+  name    = "docker_sg"
   ingress_rules = ["https-443-tcp","http-80-tcp","http-22-tcp","http-3000-tcp"]
   ingress_cidr_blocks = ["0.0.0.0/0"]
   egress_rules = ["all-all"]
