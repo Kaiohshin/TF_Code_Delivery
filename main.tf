@@ -30,6 +30,18 @@ module "docker_vpc" {
   }
 }
 
+module "docker_sg" {
+  source  = "terraform-aws-modules/security-group/aws"
+  version = "4.13.0"
+
+  vpc_id  = module.docker_vpc.vpc_id
+  name    = "docker"
+  ingress_rules = ["https-443-tcp","http-80-tcp","http-22-tcp","http-3000-tcp"]
+  ingress_cidr_blocks = ["0.0.0.0/0"]
+  egress_rules = ["all-all"]
+  egress_cidr_blocks = ["0.0.0.0/0"]
+}
+
 data "template_file" "docker-compose" {
     template = "${file("docker-compose.tpl")}"
 }
@@ -107,7 +119,7 @@ module "docker_autoscaling" {
   max_size            = 1
   vpc_zone_identifier = module.docker_vpc.public_subnets
   target_group_arns   = module.docker_alb.target_group_arns
-  security_groups     = [aws_security_group.docker_sg.id]
+  security_groups     = [module.docker_sg.security_group_id]
   instance_type       = var.docker_instance
   image_id            = "ami-053a862cc72bed182"
 
@@ -126,7 +138,7 @@ module "docker_alb" {
 
   vpc_id             = module.docker_vpc.vpc_id
   subnets            = module.docker_vpc.public_subnets
-  security_groups    = [aws_security_group.docker_sg.id]
+  security_groups    = [module.docker_sg.security_group_id]
 
   target_groups = [
     {
