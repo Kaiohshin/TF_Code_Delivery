@@ -6,7 +6,7 @@ write_files:
             alpine:
               image: 992382655760.dkr.ecr.eu-north-1.amazonaws.com/docker_ecr_repo:latest
               ports: 
-                - 3000
+                - 3000:3000
    path: /opt/docker-compose.yml
 runcmd:
  - sudo yum update -y
