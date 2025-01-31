@@ -1,14 +1,14 @@
 # Variable for AWS region
 variable "region" {
   description = "AWS region"
-  default     = "eu-north-1"
+  default     = "us-east-2"
 }
 
 # Variable for instance type of EC2
 variable "docker_instance" {
   description = "Instance type of EC2"
   type        = string
-  default     = "t3.micro"
+  default     = "t2.micro"
 }
 
 # Variable for security group name of Docker
