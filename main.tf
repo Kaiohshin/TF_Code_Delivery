@@ -1,19 +1,3 @@
-data "aws_ami" "app_ami" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = [var.ami_filter.name]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = [var.ami_filter.owner]
-}
-
 # VPC
 module "docker_vpc" {
   source = "terraform-aws-modules/vpc/aws"
@@ -77,75 +61,22 @@ module "dynamodb_table" {
   }
 }
 
-# # EC2 Instance
-# resource "aws_instance" "docker_instance" {
-#   ami                    = "ami-053a862cc72bed182"
-#   instance_type          = var.docker_instance
-#   vpc_security_group_ids = [aws_security_group.docker_sg.id]
+# EC2 Instance
+resource "aws_instance" "docker_instance" {
+  ami                    = "ami-053a862cc72bed182"
+  instance_type          = var.docker_instance
+  vpc_security_group_ids = [aws_security_group.docker_sg.id]
   
-#   # SSH key
-#   key_name = aws_key_pair.docker-key.key_name
+  # SSH key
+  key_name = aws_key_pair.docker-key.key_name
 
-#   # Role
-#   iam_instance_profile = aws_iam_instance_profile.tf-docker-role.name
+  # Role
+  iam_instance_profile = aws_iam_instance_profile.tf-docker-role.name
 
-#   # User Data in AWS EC2
-#   user_data = "${data.template_file.docker-compose.rendered}"
-
-#   tags = {
-#     Name = "Docker"
-#   }
-# }
-
-module "docker_autoscaling" {
-  source  = "terraform-aws-modules/autoscaling/aws"
-  version = "6.5.2"
-
-  name = "${var.environment.name}-docker"
-
-  min_size            = 0
-  max_size            = 1
-  vpc_zone_identifier = module.docker_vpc.public_subnets
-  target_group_arns   = module.docker_alb.target_group_arns
-  security_groups     = [var.docker_sg.id]
-  instance_type       = var.docker_instance
-  image_id            = "ami-053a862cc72bed182"
-
-  key_name      = aws_key_pair.docker-key.key_name
-  iam_role_name = aws_iam_instance_profile.tf-docker-role.name
-  user_data     = "${data.template_file.docker-compose.rendered}"
-}
-
-module "docker_alb" {
-  source  = "terraform-aws-modules/alb/aws"
-  version = "~> 6.0"
-
-  name = "${var.environment.name}-docker-alb"
-
-  load_balancer_type = "application"
-
-  vpc_id             = module.docker_vpc.vpc_id
-  subnets            = module.docker_vpc.public_subnets
-  security_groups    = [aws_security_group.docker_sg.security_group_id]
-
-  target_groups = [
-    {
-      name_prefix      = "${var.environment.name}-"
-      backend_protocol = "HTTP"
-      backend_port     = 3000
-      target_type      = "instance"
-    }
-  ]
-
-  http_tcp_listeners = [
-    {
-      port               = 80
-      protocol           = "HTTP"
-      target_group_index = 0
-    }
-  ]
+  # User Data in AWS EC2
+  user_data = "${data.template_file.docker-compose.rendered}"
 
   tags = {
-    Environment = var.environment.name
+    Name = "Docker"
   }
 }

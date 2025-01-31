@@ -1,10 +1,7 @@
-# output "instance" {
-#   value = aws_instance.docker_instance.public_dns
-# }
-
-output "dns_alb" {
-  value = module.docker_alb.lb_dns_name
+output "instance" {
+  value = aws_instance.docker_instance.public_dns
 }
+
 output "repository_url" {
   value = aws_ecr_repository.docker_ecr_repo.repository_url
 }
