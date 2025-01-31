@@ -15,7 +15,6 @@ resource "aws_iam_role" "tf-docker-role" {
   ]
 }
 EOF
-
 }
 
 resource "aws_iam_instance_profile" "tf-docker-role" {
@@ -108,7 +107,7 @@ resource "aws_iam_role_policy" "dydb-tf-docker-role-policy" {
             "Resource": "*"
         },
         {
-            "Sid": "docker_dydb",
+            "Sid": "dockerdydb",
             "Effect": "Allow",
             "Action": [
                 "dynamodb:BatchGet*",
