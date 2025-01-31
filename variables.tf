@@ -12,7 +12,7 @@ variable "docker_instance" {
 }
 
 # Variable for security group name of Docker
-variable "docker_sg" {
+variable "security_group_name" {
   description = "Docker security group name"
   type        = string
   default     = "docker_sg"
