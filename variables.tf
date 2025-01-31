@@ -26,12 +26,12 @@ variable "ami_filter" {
   }
 }
 
-# # Variable for security group name of Docker
-# variable "security_group_name" {
-#   description = "Docker security group name"
-#   type        = string
-#   default     = "docker_sg"
-# }
+# Variable for security group name of Docker
+variable "security_group_name" {
+  description = "Docker security group name"
+  type        = string
+  default     = "docker_sg"
+}
 
 # Variable for Environment
 variable "environment" {
