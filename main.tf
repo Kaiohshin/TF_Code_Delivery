@@ -41,7 +41,7 @@ resource "aws_instance" "docker_instance" {
 }
 
 resource "aws_ecrpublic_repository" "docker_ecr_repo" {
-    provider = aws.eu_north_1
+    provider = aws.region
 
   repository_name = "var.ecr_repo_name"
 }
