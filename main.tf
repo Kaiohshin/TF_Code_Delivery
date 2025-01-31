@@ -40,8 +40,8 @@ resource "aws_instance" "docker_instance" {
   }
 }
 
-resource "aws_ecrpublic_repository" "docker_ecr_repo" {
-  repository_name = "var.ecr_repo_name"
+resource "aws_ecr_repository" "docker_ecr_repo" {
+  name = var.ecr_repo_name
 }
 
 resource "aws_s3_bucket" "bucket" {
