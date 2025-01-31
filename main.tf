@@ -64,7 +64,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "terraform_crypto_
 module "dynamodb_table" {
   source   = "terraform-aws-modules/dynamodb-table/aws"
 
-  name     = var.docker_dydb
+  name     = var.dydb_name
   hash_key = "id"
 
   attributes = [
@@ -76,6 +76,6 @@ module "dynamodb_table" {
 
   tags = {
     Terraform   = "true"
-    Environment = "dev"
+    Environment = var.environment
   }
 }

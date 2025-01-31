@@ -41,7 +41,7 @@ variable "ecr_repo_name" {
 }
 
 # Variable for DynamoDB
-variable "docker_dydb" {
+variable "dydb_name" {
   description = "DynamoDB Name"
   type        = string
   default     = "docker_dydb"
