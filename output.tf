@@ -10,6 +10,6 @@ output "repository_arn" {
   value = aws_ecr_repository.docker_ecr_repo.arn
 }
 
-output "docker_dydb" {
+output "dynamodb_table_arn" {
   value = dynamodb_table.docker_dydb.arn
 }
