@@ -17,4 +17,5 @@ runcmd:
  - sudo systemctl enable docker
  - sudo chkconfig docker on
  - sudo chown $(whoami):$(whoami) /var/run/docker.sock
+ - aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 992382655760.dkr.ecr.eu-north-1.amazonaws.com
  - docker-compose -f /opt/docker-compose.yml up -d
