@@ -89,35 +89,43 @@ resource "aws_iam_role_policy" "ecr-tf-docker-role-policy" {
 EOF
 }
 
-# data "aws_iam_policy_document" "ecr-tf-docker-role-policy" {
-#   statement {
-#     sid    = "new policy"
-#     effect = "Allow"
-
-#     principals {
-#       type        = "AWS"
-#       identifiers = ["123456789012"]
-#     }
-
-#     actions = [
-#       "ecr:GetDownloadUrlForLayer",
-#       "ecr:BatchGetImage",
-#       "ecr:BatchCheckLayerAvailability",
-#       "ecr:PutImage",
-#       "ecr:InitiateLayerUpload",
-#       "ecr:UploadLayerPart",
-#       "ecr:CompleteLayerUpload",
-#       "ecr:DescribeRepositories",
-#       "ecr:GetRepositoryPolicy",
-#       "ecr:ListImages",
-#       "ecr:DeleteRepository",
-#       "ecr:BatchDeleteImage",
-#       "ecr:SetRepositoryPolicy",
-#       "ecr:DeleteRepositoryPolicy",
-#     ]
-#   }
-# }
-# resource "aws_ecrpublic_repository_policy" "ecr_repo_name" {
-#   repository_name = aws_ecrpublic_repository.ecr_repo_name.repository_arn
-#   policy          = data.aws_iam_policy_document.ecr_repo_policy.json
-# }
+resource "aws_iam_role_policy" "dydb-tf-docker-role-policy" {
+  name = "dydb-tf-docker-role-policy"
+  role = aws_iam_role.tf-docker-role.id
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ListAndDescribe",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:List*",
+                "dynamodb:DescribeReservedCapacity*",
+                "dynamodb:DescribeLimits",
+                "dynamodb:DescribeTimeToLive"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "docker_dydb",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:BatchGet*",
+                "dynamodb:DescribeStream",
+                "dynamodb:DescribeTable",
+                "dynamodb:Get*",
+                "dynamodb:Query",
+                "dynamodb:Scan",
+                "dynamodb:BatchWrite*",
+                "dynamodb:CreateTable",
+                "dynamodb:Delete*",
+                "dynamodb:Update*",
+                "dynamodb:PutItem"
+            ],
+            "Resource": "arn:aws:dynamodb:*:*:table/MyTable"
+        }
+    ]
+}
+EOF
+}

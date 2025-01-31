@@ -40,6 +40,13 @@ variable "ecr_repo_name" {
   default     = "docker_ecr_repo"
 }
 
+# Variable for DynamoDB
+variable "docker_dydb" {
+  description = "DynamoDB Name"
+  type        = string
+  default     = "docker_dydb"
+}
+
 variable "PATH_TO_PRIVATE_KEY" {
   default = "docker-key"
 }

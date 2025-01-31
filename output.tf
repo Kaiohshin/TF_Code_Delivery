@@ -9,3 +9,7 @@ output "repository_url" {
 output "repository_arn" {
   value = aws_ecr_repository.docker_ecr_repo.arn
 }
+
+output "dynamodb_table" {
+  value = dynamodb_table.docker_dydb.arn
+}

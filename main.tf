@@ -76,6 +76,6 @@ module "dynamodb_table" {
 
   tags = {
     Terraform   = "true"
-    Environment = "staging"
+    Environment = "dev"
   }
 }
