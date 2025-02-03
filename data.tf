@@ -1,9 +1,9 @@
-data "template_file" "docker-compose" {
-  template = file("docker-compose.tpl")
-  vars = aws_ecr_repository.docker_ecr_repo
+data "template_file" "docker_compose" {
+  template = file("docker_compose.tpl")
+  vars     = aws_ecr_repository.docker_ecr_repo
 }
 
-data "aws_ssm_parameter" "my-amzn-linux-ami" {
+data "aws_ssm_parameter" "my_amzn_linux_ami" {
   name = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
 }
 

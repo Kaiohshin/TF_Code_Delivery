@@ -58,15 +58,15 @@ module "dynamodb_table" {
 
 # EC2 Instance
 resource "aws_instance" "docker_instance" {
-  ami                    = data.aws_ssm_parameter.my-amzn-linux-ami.value
+  ami                    = data.aws_ssm_parameter.my_amzn_linux_ami.value
   instance_type          = var.docker_instance
   vpc_security_group_ids = [aws_security_group.docker_sg.id]
 
   # Role
-  iam_instance_profile = aws_iam_instance_profile.tf-docker-role.name
+  iam_instance_profile = aws_iam_instance_profile.tf_docker_role.name
 
   # User Data in AWS EC2
-  user_data = data.template_file.docker-compose.rendered
+  user_data = data.template_file.docker_compose.rendered
 
   tags = {
     Name = "Docker"
