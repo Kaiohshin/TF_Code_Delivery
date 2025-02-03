@@ -1,5 +1,5 @@
 data "template_file" "docker_compose" {
-  template = file("docker_compose.yml")
+  template = file("docker-compose.yml")
   # vars     = module.docker_ecr_repo.repository_url
 }
 
