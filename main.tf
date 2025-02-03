@@ -176,8 +176,8 @@ module "cloudinit" {
     "docker-compose -f /opt/docker-compose.yml up -d"
   ]
 
-  config_files = {
-    "/opt/docker-compose.yml" : templatefile("${path.module}docker-compose.yml", local.template_vars)
-    #"/etc/nomad.d/nomad.hcl" : templatefile("${path.module}/templates/nomad.hcl", local.template_vars),
-  }
+  # config_files = {
+  #   "/opt/docker-compose.yml" : templatefile("${path.module}docker-compose.yml", local.template_vars)
+  #   #"/etc/nomad.d/nomad.hcl" : templatefile("${path.module}/templates/nomad.hcl", local.template_vars),
+  # }
 }
