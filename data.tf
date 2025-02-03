@@ -4,8 +4,7 @@ data "template_file" "docker_compose" {
 }
 
 data "aws_ssm_parameter" "my_amzn_linux_ami" {
-  # name = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
-  name = "/979382823631/bitnami-tomcat-8.5.97-0-linux-debian-11-x86_64-hvm-ebs-nami"
+  name = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
 }
 
 data "aws_iam_policy" "ssm_core" {
