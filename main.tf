@@ -82,8 +82,8 @@ module "dynamodb_table" {
 }
 
 module "asg" {
-  source = "terraform-aws-modules/autoscaling/aws"
-
+  source  = "terraform-aws-modules/autoscaling/aws"
+  version = "~> 6.0"
   # Autoscaling group
   name = "${var.environment.name}-instance"
 
