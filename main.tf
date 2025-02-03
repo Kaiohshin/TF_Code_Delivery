@@ -177,6 +177,6 @@ module "cloudinit" {
   ]
 
   config_files = {
-    "/opt/docker-compose.yml" : templatefile("docker-compose.yml", local.template_vars),
+    "/opt/docker-compose.yml" : templatefile("docker-compose.yml")
   }
 }
