@@ -4,7 +4,6 @@ data "template_file" "docker_compose" {
 }
 
 data "aws_ssm_parameter" "my_amzn_linux_ami" {
-data "aws_ssm_parameter" "my_amzn_linux_ami" {
   name = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
 }
 
