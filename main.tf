@@ -87,7 +87,7 @@ module "asg" {
   # Autoscaling group
   name = "${var.environment.name}-instance"
 
-  min_size                  = 0
+  min_size                  = 1
   max_size                  = 1
   desired_capacity          = 1
   wait_for_capacity_timeout = 0
