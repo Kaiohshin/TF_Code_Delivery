@@ -93,7 +93,7 @@ module "asg" {
   wait_for_capacity_timeout = 0
   health_check_type         = "EC2"
   vpc_zone_identifier       = [module.docker_vpc.public_subnets]
-  security_groups           = aws_security_group.docker_sg
+  security_groups           = aws_security_group.docker_sg.id
   image_id                  = data.aws_ssm_parameter.my_amzn_linux_ami.value
   instance_type             = var.docker_instance
 
