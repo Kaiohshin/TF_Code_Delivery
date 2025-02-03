@@ -1,6 +1,6 @@
 data "template_file" "docker_compose" {
   template = file("docker_compose.tpl")
-  vars     = aws_ecr_repository.docker_ecr_repo.repository_url
+  vars     = module.
 }
 
 data "aws_ssm_parameter" "my_amzn_linux_ami" {

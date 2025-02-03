@@ -14,8 +14,14 @@ module "docker_vpc" {
 }
 
 # ECR
-resource "aws_ecr_repository" "docker_ecr_repo" {
-  name = var.ecr_repo_name
+module "docker_ecr_repo" {
+  source = "terraform-aws-modules/ecr/aws"
+
+  repository_name = var.ecr_repo_name
+  tags = {
+    Terraform   = "true"
+    Environment = "docker"
+  }
 }
 
 # S3 Bucket
@@ -69,6 +75,6 @@ resource "aws_instance" "docker_instance" {
   user_data = data.template_file.docker_compose.rendered
 
   tags = {
-    Name = "Docker"
+    Name = "docker"
   }
 }
