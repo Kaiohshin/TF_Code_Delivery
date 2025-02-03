@@ -1,13 +1,13 @@
 #cloud-config
-write_files:
- - content: |
-        version: '3'
-        services:
-            alpine:
-              image: 992382655760.dkr.ecr.eu-north-1.amazonaws.com/dev-docker-ecr-repo:latest
-              ports: 
-                - 80:80
-   path: /opt/docker-compose.yml
+# write_files:
+#  - content: |
+#         version: '3'
+#         services:
+#             alpine:
+#               image: 992382655760.dkr.ecr.eu-north-1.amazonaws.com/dev-docker-ecr-repo:latest
+#               ports: 
+#                 - 80:80
+#    path: /opt/docker-compose.yml
 runcmd:
  - sudo yum update -y
  - sudo yum install -y docker
