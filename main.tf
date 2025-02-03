@@ -39,7 +39,7 @@ module "docker_ecr_repo" {
 
   tags = {
     Terraform   = "true"
-    Environment = "docker"
+    Environment = var.environment.name
   }
 }
 
@@ -85,14 +85,14 @@ module "asg" {
   source = "terraform-aws-modules/autoscaling/aws"
 
   # Autoscaling group
-  name = "docker_instance"
+  name = "${var.environment.name}-_instance"
 
   min_size                  = 0
   max_size                  = 1
   desired_capacity          = 1
   wait_for_capacity_timeout = 0
   health_check_type         = "EC2"
-  vpc_zone_identifier       = [module.docker_vpc.public_subnets]
+  vpc_zone_identifier       = [module.docker_vpc.public_subnets.id]
   security_groups           = aws_security_group.docker_sg.id
   image_id                  = data.aws_ssm_parameter.my_amzn_linux_ami.value
   instance_type             = var.docker_instance
