@@ -1,6 +1,6 @@
 data "template_file" "docker_compose" {
   template = file("docker_compose.tpl")
-  vars     = "${data.aws_ecr_repository.docker_ecr_repo.repository_url}"
+  vars     = aws_ecr_repository.docker_ecr_repo.repository_url
 }
 
 data "aws_ssm_parameter" "my_amzn_linux_ami" {
@@ -10,4 +10,3 @@ data "aws_ssm_parameter" "my_amzn_linux_ami" {
 data "aws_iam_policy" "ssm_core" {
   arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
-
