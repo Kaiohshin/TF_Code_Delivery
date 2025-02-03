@@ -60,11 +60,3 @@ variable "dydb_name" {
   type        = string
   default     = "docker_dydb"
 }
-
-variable "PATH_TO_PRIVATE_KEY" {
-  default = "docker-key"
-}
-
-variable "PATH_TO_PUBLIC_KEY" {
-  default = "docker-key.pub"
-}

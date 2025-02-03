@@ -1,5 +1,5 @@
-resource "aws_iam_role" "tf-docker-role" {
-  name               = "tf-docker-role"
+resource "aws_iam_role" "tf_docker_role" {
+  name               = "tf_docker_role"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -17,19 +17,19 @@ resource "aws_iam_role" "tf-docker-role" {
 EOF
 }
 
-resource "aws_iam_role_policy_attachment" "test-attach" {
+resource "aws_iam_role_policy_attachment" "test_attach" {
   policy_arn = data.aws_iam_policy.ssm_core.arn
-  role       = aws_iam_role.tf-docker-role.name
+  role       = aws_iam_role.tf_docker_role.name
 }
 
-resource "aws_iam_instance_profile" "tf-docker-role" {
-  name = "tf-docker-role"
-  role = aws_iam_role.tf-docker-role.name
+resource "aws_iam_instance_profile" "tf_docker_role" {
+  name = "tf_docker_role"
+  role = aws_iam_role.tf_docker_role.name
 }
 
-resource "aws_iam_role_policy" "s3-tf-docker-role-policy" {
-  name   = "s3-tf-docker-role-policy"
-  role   = aws_iam_role.tf-docker-role.id
+resource "aws_iam_role_policy" "s3_tf_docker_role_policy" {
+  name   = "s3_tf_docker_role_policy"
+  role   = aws_iam_role.tf_docker_role.id
   policy = <<EOF
 {
     "Version": "2012-10-17",
@@ -57,9 +57,9 @@ resource "aws_iam_role_policy" "s3-tf-docker-role-policy" {
 EOF
 }
 
-resource "aws_iam_role_policy" "ecr-tf-docker-role-policy" {
-  name   = "ecr-tf-docker-role-policy"
-  role   = aws_iam_role.tf-docker-role.id
+resource "aws_iam_role_policy" "ecr_tf_docker_role_policy" {
+  name   = "ecr_tf_docker_role_policy"
+  role   = aws_iam_role.tf_docker_role.id
   policy = <<EOF
 {
     "Version": "2012-10-17",
@@ -93,9 +93,9 @@ resource "aws_iam_role_policy" "ecr-tf-docker-role-policy" {
 EOF
 }
 
-resource "aws_iam_role_policy" "dydb-tf-docker-role-policy" {
-  name   = "dydb-tf-docker-role-policy"
-  role   = aws_iam_role.tf-docker-role.id
+resource "aws_iam_role_policy" "dydb_tf_docker_role_policy" {
+  name   = "dydb_tf_docker_role_policy"
+  role   = aws_iam_role.tf_docker_role.id
   policy = <<EOF
 {
     "Version": "2012-10-17",
