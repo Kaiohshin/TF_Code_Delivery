@@ -1,9 +1,6 @@
 data "template_file" "docker_compose" {
   template = file("docker_compose.tpl")
-  vars     = {
-    [module.docker_ecr_repo.repository_url]
-    type     = string
-  }
+  # vars     = module.docker_ecr_repo.repository_url
 }
 
 data "aws_ssm_parameter" "my_amzn_linux_ami" {
