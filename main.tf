@@ -81,6 +81,30 @@ module "dynamodb_table" {
   }
 }
 
+module "asg" {
+  source = "terraform-aws-modules/autoscaling/aws"
+
+  # Autoscaling group
+  name = "docker_instance"
+
+  min_size                  = 0
+  max_size                  = 1
+  desired_capacity          = 1
+  wait_for_capacity_timeout = 0
+  health_check_type         = "EC2"
+  vpc_zone_identifier       = [module.docker_vpc.public_subnets]
+  security_groups           = aws_security_group.docker_sg
+  image_id                  = data.aws_ssm_parameter.my_amzn_linux_ami.value
+  instance_type             = var.docker_instance
+
+  iam_instance_profile_name = aws_iam_instance_profile.tf_docker_role.name
+
+  tags = {
+    Name = "docker"
+  }
+}
+
+
 # # EC2 Instance
 # resource "aws_instance" "docker_instance" {
 #   ami                    = data.aws_ssm_parameter.my_amzn_linux_ami.value
@@ -97,25 +121,3 @@ module "dynamodb_table" {
 #     Name = "docker"
 #   }
 # }
-
-module "asg" {
-  source = "terraform-aws-modules/autoscaling/aws"
-
-  # Autoscaling group
-  name = "docker_instance"
-
-  min_size                  = 0
-  max_size                  = 1
-  desired_capacity          = 1
-  wait_for_capacity_timeout = 0
-  health_check_type         = "EC2"
-  vpc_zone_identifier       = [docker_vpc.public_subnets.id]
-  image_id                  = data.aws_ssm_parameter.my_amzn_linux_ami.value
-  instance_type             = var.docker_instance
-
-  iam_instance_profile_name = aws_iam_instance_profile.tf_docker_role.name
-
-  tags = {
-    Name = "docker"
-  }
-}
