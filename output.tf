@@ -1,6 +1,6 @@
-output "instance" {
-  value = aws_instance.docker_instance.public_dns
-}
+# output "instance" {
+#   value = module.asg.
+# }
 
 output "dynamodb_table_arn" {
   value = module.dynamodb_table.dynamodb_table_arn
