@@ -15,5 +15,5 @@ output "dynamodb_table_arn" {
 }
 
 output "ecr_repo_name" {
-  value = module.aws_ecr_repository.docker_ecr_repo.name
+  value = aws_ecr_repository.docker_ecr_repo.name
 }
