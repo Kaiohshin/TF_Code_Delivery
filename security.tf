@@ -42,4 +42,8 @@ resource "aws_security_group" "docker_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  tags = {
+    Terraform   = "true"
+    Environment = var.environment.name
+  }
 }
