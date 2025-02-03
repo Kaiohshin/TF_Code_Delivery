@@ -95,8 +95,8 @@ module "asg" {
   vpc_zone_identifier       = module.docker_vpc.public_subnets
   target_group_arns         = module.alb.target_group_arns
   security_groups           = [aws_security_group.docker_sg.id]
-  # image_id                  = data.aws_ssm_parameter.my_amzn_linux_ami.value
-  image_id      = "ami-022b09c6713e1d3da"
+  image_id                  = data.aws_ssm_parameter.my_amzn_linux_ami.value
+  # image_id      = "ami-022b09c6713e1d3da"
   instance_type = var.docker_instance
 
   iam_instance_profile_name = aws_iam_instance_profile.tf_docker_role.name
