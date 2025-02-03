@@ -109,7 +109,7 @@ module "asg" {
   desired_capacity          = 1
   wait_for_capacity_timeout = 0
   health_check_type         = "EC2"
-  vpc_zone_identifier       = [aws_security_group.docker_sg.id]
+  vpc_zone_identifier       = [docker_vpc]
   image_id                  = data.aws_ssm_parameter.my_amzn_linux_ami.value
   instance_type             = var.docker_instance
 
