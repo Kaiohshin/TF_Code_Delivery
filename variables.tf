@@ -47,13 +47,6 @@ variable "environment" {
   }
 }
 
-# Variable for ECR
-variable "ecr_repo_name" {
-  description = "ECR Repo Name"
-  type        = string
-  default     = "docker_ecr_repo"
-}
-
 # Variable for DynamoDB
 variable "dydb_name" {
   description = "DynamoDB Name"

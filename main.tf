@@ -17,7 +17,7 @@ module "docker_vpc" {
 module "docker_ecr_repo" {
   source = "terraform-aws-modules/ecr/aws"
 
-  repository_name = var.ecr_repo_name
+  repository_name = "${var.environment.name}-docker-ecr-repo"
 
   repository_lifecycle_policy = jsonencode({
     rules = [
@@ -85,7 +85,7 @@ module "asg" {
   source = "terraform-aws-modules/autoscaling/aws"
 
   # Autoscaling group
-  name = "${var.environment.name}-_instance"
+  name = "${var.environment.name}-instance"
 
   min_size                  = 0
   max_size                  = 1
@@ -104,6 +104,40 @@ module "asg" {
   }
 }
 
+module "alb" {
+  source  = "terraform-aws-modules/alb/aws"
+  version = "~> 6.0"
+
+  name = "${var.environment.name}-alb"
+
+  load_balancer_type = "application"
+
+  vpc_id          = module.docker_vpc.default_vpc_id
+  subnets         = module.docker_vpc.public_subnets
+  security_groups = [aws_security_group.docker_sg.id]
+
+  target_groups = [
+    {
+      name_prefix      = "blog-"
+      backend_protocol = "HTTP"
+      backend_port     = 80
+      target_type      = "instance"
+    }
+  ]
+
+  http_tcp_listeners = [
+    {
+      port               = 80
+      protocol           = "HTTP"
+      target_group_index = 0
+    }
+  ]
+
+  tags = {
+    Terraform   = "true"
+    Environment = var.environment.name
+  }
+}
 
 # # EC2 Instance
 # resource "aws_instance" "docker_instance" {
