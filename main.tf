@@ -89,7 +89,7 @@ module "asg" {
 
   min_size                  = 0
   max_size                  = 1
-  desired_capacity          = 1
+  desired_capacity          = 0
   wait_for_capacity_timeout = 0
   health_check_type         = "EC2"
   vpc_zone_identifier       = module.docker_vpc.public_subnets
