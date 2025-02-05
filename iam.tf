@@ -26,7 +26,7 @@ data "aws_iam_policy_document" "tf_docker_role" {
   }
 }
 resource "aws_iam_role" "tf_docker_role" {
-  name               = tf_docker_role
+  name               = tf_docker_role.id
   assume_role_policy = data.aws_iam_policy_document.tf_docker_role.json
 }
 
