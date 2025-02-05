@@ -51,9 +51,9 @@ resource "aws_iam_role_policy" "s3_tf_docker_role_policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = ["s3:GetObject", "s3:ListBucket"]
-        # Effect   = "Deny ${module.s3.bucket}"
-        # Resource = format("ana are %s",module.s3.bucket)
+        Action   = ["s3:GetObject", "s3:ListBucket"]
+        Effect   = "Allow"
+        Resource = "arn:aws:s3:::dev-tf-docker-compose-test1"
       },
     ]
   })
