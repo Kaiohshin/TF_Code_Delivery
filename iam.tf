@@ -1,30 +1,30 @@
-resource "aws_iam_role" "tf_docker_role" {
-  name = "tf_docker_role"
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Sid    = ""
-        Principal = {
-          Service = "ec2.amazonaws.com"
-        }
-      },
-    ]
-  })
-}
-
-# data "aws_iam_policy_document" "tf_docker_role" {
-#   statement {
-#     actions = ["sts:AssumeRole"]
-
-#     principals {
-#       type        = "Service"
-#       identifiers = ["ec2.amazonaws.com"]
-#     }
-#   }
+# resource "aws_iam_role" "tf_docker_role" {
+#   name = "tf_docker_role"
+#   assume_role_policy = jsonencode({
+#     Version = "2012-10-17"
+#     Statement = [
+#       {
+#         Action = "sts:AssumeRole"
+#         Effect = "Allow"
+#         Sid    = ""
+#         Principal = {
+#           Service = "ec2.amazonaws.com"
+#         }
+#       },
+#     ]
+#   })
 # }
+
+data "aws_iam_policy_document" "tf_docker_role" {
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["ec2.amazonaws.com"]
+    }
+  }
+}
 
 resource "aws_iam_role_policy_attachment" "test_attach" {
   policy_arn = data.aws_iam_policy.ssm_core.arn
