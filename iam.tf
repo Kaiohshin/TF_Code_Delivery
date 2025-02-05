@@ -21,7 +21,7 @@ data "aws_iam_policy_document" "tf_docker_role" {
 
     principals {
       type        = "Service"
-      identifiers = ["firehose.amazonaws.com"]
+      identifiers = ["ec2.amazonaws.com"]
     }
   }
 }
