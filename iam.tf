@@ -1,30 +1,30 @@
-# resource "aws_iam_role" "tf_docker_role" {
-#   name = "tf_docker_role"
-#   assume_role_policy = jsonencode({
-#     Version = "2012-10-17"
-#     Statement = [
-#       {
-#         Action = "sts:AssumeRole"
-#         Effect = "Allow"
-#         Sid    = ""
-#         Principal = {
-#           Service = "ec2.amazonaws.com"
-#         }
-#       },
-#     ]
-#   })
-# }
-
-data "aws_iam_policy_document" "tf_docker_role" {
-  statement {
-    actions = ["sts:AssumeRole"]
-
-    principals {
-      type        = "Service"
-      identifiers = ["ec2.amazonaws.com"]
-    }
-  }
+resource "aws_iam_role" "tf_docker_role" {
+  name = "tf_docker_role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Sid    = ""
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+      },
+    ]
+  })
 }
+
+# data "aws_iam_policy_document" "tf_docker_role" {
+#   statement {
+#     actions = ["sts:AssumeRole"]
+
+#     principals {
+#       type        = "Service"
+#       identifiers = ["ec2.amazonaws.com"]
+#     }
+#   }
+# }
 
 resource "aws_iam_role_policy_attachment" "test_attach" {
   policy_arn = data.aws_iam_policy.ssm_core.arn
@@ -43,9 +43,9 @@ resource "aws_iam_role_policy" "s3_tf_docker_role_policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action   = ["s3:GetObject", "s3:ListBucket"]
-        Effect   = "Deny ${module.s3.bucket}"
-        Resource = format("ana are %s",module.s3.bucket)
+        Action = ["s3:GetObject", "s3:ListBucket"]
+        # Effect   = "Deny ${module.s3.bucket}"
+        # Resource = format("ana are %s",module.s3.bucket)
       },
     ]
   })
