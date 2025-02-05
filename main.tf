@@ -3,7 +3,7 @@ resource "aws_instance" "docker_instance" {
   ami                    = data.aws_ssm_parameter.my_amzn_linux_ami.value
   instance_type          = var.docker_instance
   vpc_security_group_ids = [aws_security_group.docker_sg.id]
-  subnet_id              = var.public_subnets.id
+  subnet_id              = var.cidr
   # Role
   iam_instance_profile = aws_iam_instance_profile.tf_docker_role.name
 
