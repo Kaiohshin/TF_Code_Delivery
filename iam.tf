@@ -21,8 +21,9 @@ data "aws_iam_policy_document" "tf_docker_role" {
 
     principals {
       type        = "AWS"
-      identifiers = ["ec2.amazonaws.com"]
+      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
     }
+    effect = "Allow"
   }
 }
 
