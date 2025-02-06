@@ -45,20 +45,20 @@ resource "aws_iam_instance_profile" "tf_docker_role" {
 }
 
 #S3
-resource "aws_iam_role_policy" "s3_tf_docker_role_policy" {
-  name = "s3_tf_docker_role_policy"
-  role = aws_iam_role.tf_docker_role.name
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action   = ["s3:GetObject", "s3:ListBucket"]
-        Effect   = "Allow"
-        Resource = "arn:aws:s3:::dev-tf-docker-compose-test1"
-      },
-    ]
-  })
-}
+# resource "aws_iam_role_policy" "s3_tf_docker_role_policy" {
+#   name = "s3_tf_docker_role_policy"
+#   role = aws_iam_role.tf_docker_role.name
+#   policy = jsonencode({
+#     Version = "2012-10-17"
+#     Statement = [
+#       {
+#         Action   = ["s3:GetObject", "s3:ListBucket"]
+#         Effect   = "Allow"
+#         Resource = "arn:aws:s3:::dev-tf-docker-compose-test1"
+#       },
+#     ]
+#   })
+# }
 
 data "aws_iam_policy_document" "s3_tf_docker_role_policy" {
   statement {
