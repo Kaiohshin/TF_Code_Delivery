@@ -18,8 +18,9 @@ module "asg" {
 
   iam_instance_profile_name = aws_iam_instance_profile.tf_docker_role.name
 
-  # user_data = data.template_file.docker_compose.rendered
-  user_data = module.cloudinit.rendered
+  user_data = data.template_file.docker_compose.rendered
+#   user_data = module.cloudinit.rendered
+  
 
   tags = {
     Name = "docker"
