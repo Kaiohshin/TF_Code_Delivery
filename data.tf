@@ -6,7 +6,7 @@ data "template_file" "docker_compose" {
 }
 
 data "aws_ssm_parameter" "my_amzn_linux_ami" {
-  name = "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-x86_64"
+  name = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
 }
 
 data "aws_iam_policy" "ssm_core" {
