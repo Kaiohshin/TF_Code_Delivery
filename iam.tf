@@ -34,7 +34,7 @@ data "aws_iam_policy_document" "s3_tf_docker_role_policy" {
       "s3:ListBucket",
     ]
     resources = [
-      module.s3_bucket.s3_bucket_arn 
+      module.s3_bucket.s3_bucket_arn
     ]
   }
 }
@@ -107,7 +107,7 @@ data "aws_iam_policy_document" "dydb_tf_docker_role_policy" {
       "dynamodb:Update*",
       "dynamodb:PutItem"
     ]
-    resources = ["arn:aws:dynamodb:*:*:table/docker_dydb"]
+    resources = [module.dynamodb_table.dynamodb_table_arn]
   }
 }
 resource "aws_iam_policy" "dydb_tf_docker_role_policy" {
