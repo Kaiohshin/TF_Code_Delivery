@@ -6,7 +6,6 @@ resource "aws_instance" "docker_instance" {
   subnet_id              = module.docker_vpc.public_subnets[0]
   # Role
   iam_instance_profile = aws_iam_instance_profile.tf_docker_role.name
-
   # User Data in AWS EC2
   user_data = data.template_file.docker_compose.rendered
 
