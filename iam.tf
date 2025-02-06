@@ -38,7 +38,7 @@ resource "aws_iam_instance_profile" "tf_docker_role" {
   name = "tf_docker_role"
   role = aws_iam_role.tf_docker_role.name
 }
-resource "aws_iam_role_policy_attachment" "test_attach" {
+resource "aws_iam_role_policy_attachment" "attach_ssm_core" {
   policy_arn = data.aws_iam_policy.ssm_core.arn
   role       = aws_iam_role.tf_docker_role.name
 }
@@ -77,7 +77,7 @@ resource "aws_iam_policy" "s3_tf_docker_role_policy" {
   name   = "s3_tf_docker_role_policy"
   policy = data.aws_iam_policy_document.s3_tf_docker_role_policy.json
 }
-resource "aws_iam_role_policy_attachment" "test-attach" {
+resource "aws_iam_role_policy_attachment" "attach_s3" {
   role       = aws_iam_role.tf_docker_role.name
   policy_arn = aws_iam_policy.s3_tf_docker_role_policy.arn
 }
@@ -142,10 +142,10 @@ data "aws_iam_policy_document" "ecr_tf_docker_role_policy" {
   }
 }
 resource "aws_iam_policy" "ecr_tf_docker_role_policy" {
-  name   = "s3_tf_docker_role_policy"
+  name   = "ecr_tf_docker_role_policy"
   policy = data.aws_iam_policy_document.ecr_tf_docker_role_policy.json
 }
-resource "aws_iam_role_policy_attachment" "test-attach" {
+resource "aws_iam_role_policy_attachment" "attach_ecr" {
   role       = aws_iam_role.tf_docker_role.name
   policy_arn = aws_iam_policy.ecr_tf_docker_role_policy.arn
 }
