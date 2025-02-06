@@ -150,41 +150,81 @@ resource "aws_iam_role_policy_attachment" "attach_ecr" {
   policy_arn = aws_iam_policy.ecr_tf_docker_role_policy.arn
 }
 
-resource "aws_iam_role_policy" "dydb_tf_docker_role_policy" {
-  name = "dydb_tf_docker_role_policy"
-  role = aws_iam_role.tf_docker_role.name
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = [
-          "dynamodb:List*",
-          "dynamodb:DescribeReservedCapacity*",
-          "dynamodb:DescribeLimits",
-          "dynamodb:DescribeTimeToLive"
-        ]
-        Effect   = "Allow"
-        Sid      = "ListAndDescribe"
-        Resource = "*"
-      },
-      {
-        Action = [
-          "dynamodb:BatchGet*",
-          "dynamodb:DescribeStream",
-          "dynamodb:DescribeTable",
-          "dynamodb:Get*",
-          "dynamodb:Query",
-          "dynamodb:Scan",
-          "dynamodb:BatchWrite*",
-          "dynamodb:CreateTable",
-          "dynamodb:Delete*",
-          "dynamodb:Update*",
-          "dynamodb:PutItem"
-        ]
-        Effect   = "Allow"
-        Sid      = "dockerdydb"
-        Resource = "arn:aws:dynamodb:*:*:table/docker_dydb"
-      }
+#DYDB
+# resource "aws_iam_role_policy" "dydb_tf_docker_role_policy" {
+#   name = "dydb_tf_docker_role_policy"
+#   role = aws_iam_role.tf_docker_role.name
+#   policy = jsonencode({
+#     Version = "2012-10-17"
+#     Statement = [
+#       {
+#         Action = [
+#           "dynamodb:List*",
+#           "dynamodb:DescribeReservedCapacity*",
+#           "dynamodb:DescribeLimits",
+#           "dynamodb:DescribeTimeToLive"
+#         ]
+#         Effect   = "Allow"
+#         Sid      = "ListAndDescribe"
+#         Resource = "*"
+#       },
+#       {
+#         Action = [
+#           "dynamodb:BatchGet*",
+#           "dynamodb:DescribeStream",
+#           "dynamodb:DescribeTable",
+#           "dynamodb:Get*",
+#           "dynamodb:Query",
+#           "dynamodb:Scan",
+#           "dynamodb:BatchWrite*",
+#           "dynamodb:CreateTable",
+#           "dynamodb:Delete*",
+#           "dynamodb:Update*",
+#           "dynamodb:PutItem"
+#         ]
+#         Effect   = "Allow"
+#         Sid      = "dockerdydb"
+#         Resource = "arn:aws:dynamodb:*:*:table/docker_dydb"
+#       }
+#     ]
+#   })
+# }
+
+#DYDB
+data "aws_iam_policy_document" "dydb_tf_docker_role_policy" {
+  statement {
+    sid = "ListAndDescribe"
+    actions = [
+      "dynamodb:List*",
+      "dynamodb:DescribeReservedCapacity*",
+      "dynamodb:DescribeLimits",
+      "dynamodb:DescribeTimeToLive"
     ]
-  })
+    resources = ["*"]
+  }
+  statement {
+    sid = "dockerdydb"
+    actions = [
+      "dynamodb:BatchGet*",
+      "dynamodb:DescribeStream",
+      "dynamodb:DescribeTable",
+      "dynamodb:Get*",
+      "dynamodb:Query",
+      "dynamodb:Scan",
+      "dynamodb:BatchWrite*",
+      "dynamodb:CreateTable",
+      "dynamodb:Delete*",
+      "dynamodb:Update*",
+      "dynamodb:PutItem"
+    ]
+    resources = ["arn:aws:dynamodb:*:*:table/docker_dydb"]
+  }
+}
+resource "aws_iam_policy" "dydb_tf_docker_role_policy" {
+  name   = "dydb_tf_docker_role_policy"
+  policy = data.aws_iam_policy_document.dydb_tf_docker_role_policy.json
+}
+resource "aws_iam_role_policy_attachment" "attach_dydb" {
+  role       = aws_iam_role.tf_docker_role.name
+  policy_arn = aws_iam_policy.dydb_tf_docker_role_policy.arn
 }
