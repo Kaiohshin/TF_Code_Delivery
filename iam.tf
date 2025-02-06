@@ -60,6 +60,7 @@ resource "aws_iam_instance_profile" "tf_docker_role" {
 #   })
 # }
 
+#s3
 data "aws_iam_policy_document" "s3_tf_docker_role_policy" {
   statement {
     # sid = "1"
@@ -75,8 +76,13 @@ data "aws_iam_policy_document" "s3_tf_docker_role_policy" {
 }
 resource "aws_iam_policy" "s3_tf_docker_role_policy" {
   name   = "s3_tf_docker_role_policy"
+  
   path   = "/"
   policy = data.aws_iam_policy_document.s3_tf_docker_role_policy.json
+}
+resource "aws_iam_role_policy_attachment" "test_attach" {
+  policy_arn = data.aws_iam_policy.s3_tf_docker_role_policy.arn
+  role       = aws_iam_role.tf_docker_role.name
 }
 
 #ECR
