@@ -1,18 +1,57 @@
-# EC2 Instance
-resource "aws_instance" "docker_instance" {
-  ami                    = data.aws_ssm_parameter.my_amzn_linux_ami.value
-  instance_type          = var.docker_instance
-  vpc_security_group_ids = [aws_security_group.docker_sg.id]
-  subnet_id              = module.docker_vpc.public_subnets[0]
-  # Role
-  iam_instance_profile = aws_iam_instance_profile.tf_docker_role.name
-  # User Data in AWS EC2
-  user_data = data.template_file.docker_compose.rendered
+module "blog_vpc" {
+  source = "terraform-aws-modules/vpc/aws"
+
+  name = "dev"
+  cidr = "10.0.0.0/16"
+
+  azs             = ["us-west-2a","us-west-2b","us-west-2c"]
+  public_subnets  = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
+
 
   tags = {
-    Name = "docker"
+    Terraform = "true"
+    Environment = "dev"
   }
 }
+
+resource "aws_instance" "blog" {
+  ami                    = "ami-022b09c6713e1d3da"
+  instance_type          = var.docker_instance
+  subnet_id              = module.blog_vpc.public_subnets[0]
+  vpc_security_group_ids = [module.blog_sg.security_group_id]
+
+  tags = {
+    Name = "Learning Terraform"
+  }
+}
+
+module "blog_sg" {
+  source  = "terraform-aws-modules/security-group/aws"
+  version = "4.13.0"
+
+  vpc_id  = module.blog_vpc.vpc_id
+  name    = "blog"
+  ingress_rules = ["https-443-tcp","http-80-tcp"]
+  ingress_cidr_blocks = ["0.0.0.0/0"]
+  egress_rules = ["all-all"]
+  egress_cidr_blocks = ["0.0.0.0/0"]
+}
+
+# # EC2 Instance
+# resource "aws_instance" "docker_instance" {
+#   ami                    = data.aws_ssm_parameter.my_amzn_linux_ami.value
+#   instance_type          = var.docker_instance
+#   vpc_security_group_ids = [aws_security_group.docker_sg.id]
+#   subnet_id              = module.docker_vpc.public_subnets[0]
+#   # Role
+#   iam_instance_profile = aws_iam_instance_profile.tf_docker_role.name
+#   # User Data in AWS EC2
+#   user_data = data.template_file.docker_compose.rendered
+
+#   tags = {
+#     Name = "docker"
+#   }
+# }
 
 # module "cloudinit" {
 #   source  = "tedivm/cloudinit/general"
