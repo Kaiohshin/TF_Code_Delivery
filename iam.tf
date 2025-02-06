@@ -39,8 +39,11 @@ resource "aws_iam_instance_profile" "tf_docker_role" {
   role = aws_iam_role.tf_docker_role.name
 }
 resource "aws_iam_role_policy_attachment" "test_attach" {
-  # policy_arn = [data.aws_iam_policy.ssm_core.arn, aws_iam_policy.s3_tf_docker_role_policy.arn]
-  policy_arn = data.aws_iam_policy.ssm_core.arn
+  for_each = toset([
+    aws_iam_policy.s3_tf_docker_role_policy.arn,
+    data.aws_iam_policy.ssm_core.arn
+  ])
+  policy_arn = each.value
   role       = aws_iam_role.tf_docker_role.name
 }
 
