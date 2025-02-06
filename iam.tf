@@ -83,36 +83,71 @@ resource "aws_iam_role_policy_attachment" "test-attach" {
 }
 
 #ECR
-resource "aws_iam_role_policy" "ecr_tf_docker_role_policy" {
-  name = "ecr_tf_docker_role_policy"
-  role = aws_iam_role.tf_docker_role.name
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = [
-          "ecr:GetAuthorizationToken",
-          "ecr:BatchCheckLayerAvailability",
-          "ecr:GetDownloadUrlForLayer",
-          "ecr:GetRepositoryPolicy",
-          "ecr:DescribeRepositories",
-          "ecr:ListImages",
-          "ecr:DescribeImages",
-          "ecr:BatchGetImage",
-          "ecr:GetLifecyclePolicy",
-          "ecr:GetLifecyclePolicyPreview",
-          "ecr:ListTagsForResource",
-          "ecr:DescribeImageScanFindings",
-          "ecr:InitiateLayerUpload",
-          "ecr:UploadLayerPart",
-          "ecr:CompleteLayerUpload",
-          "ecr:PutImage"
-        ]
-        Effect   = "Allow"
-        Resource = "*"
-      },
+# resource "aws_iam_role_policy" "ecr_tf_docker_role_policy" {
+#   name = "ecr_tf_docker_role_policy"
+#   role = aws_iam_role.tf_docker_role.name
+#   policy = jsonencode({
+#     Version = "2012-10-17"
+#     Statement = [
+#       {
+#         Action = [
+#           "ecr:GetAuthorizationToken",
+#           "ecr:BatchCheckLayerAvailability",
+#           "ecr:GetDownloadUrlForLayer",
+#           "ecr:GetRepositoryPolicy",
+#           "ecr:DescribeRepositories",
+#           "ecr:ListImages",
+#           "ecr:DescribeImages",
+#           "ecr:BatchGetImage",
+#           "ecr:GetLifecyclePolicy",
+#           "ecr:GetLifecyclePolicyPreview",
+#           "ecr:ListTagsForResource",
+#           "ecr:DescribeImageScanFindings",
+#           "ecr:InitiateLayerUpload",
+#           "ecr:UploadLayerPart",
+#           "ecr:CompleteLayerUpload",
+#           "ecr:PutImage"
+#         ]
+#         Effect   = "Allow"
+#         Resource = "*"
+#       },
+#     ]
+#   })
+# }
+
+#ECR
+data "aws_iam_policy_document" "ecr_tf_docker_role_policy" {
+  statement {
+    # sid = "1"
+
+    actions = [
+      "ecr:GetAuthorizationToken",
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:GetDownloadUrlForLayer",
+      "ecr:GetRepositoryPolicy",
+      "ecr:DescribeRepositories",
+      "ecr:ListImages",
+      "ecr:DescribeImages",
+      "ecr:BatchGetImage",
+      "ecr:GetLifecyclePolicy",
+      "ecr:GetLifecyclePolicyPreview",
+      "ecr:ListTagsForResource",
+      "ecr:DescribeImageScanFindings",
+      "ecr:InitiateLayerUpload",
+      "ecr:UploadLayerPart",
+      "ecr:CompleteLayerUpload",
+      "ecr:PutImage"
     ]
-  })
+    resources = ["*"]
+  }
+}
+resource "aws_iam_policy" "ecr_tf_docker_role_policy" {
+  name   = "s3_tf_docker_role_policy"
+  policy = data.aws_iam_policy_document.ecr_tf_docker_role_policy.json
+}
+resource "aws_iam_role_policy_attachment" "test-attach" {
+  role       = aws_iam_role.tf_docker_role.name
+  policy_arn = aws_iam_policy.ecr_tf_docker_role_policy.arn
 }
 
 resource "aws_iam_role_policy" "dydb_tf_docker_role_policy" {
