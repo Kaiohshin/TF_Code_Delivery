@@ -18,7 +18,7 @@ resource "aws_instance" "blog" {
   ami                    = "ami-022b09c6713e1d3da"
   instance_type          = var.docker_instance
   subnet_id              = module.blog_vpc.public_subnets[0]
-  vpc_security_group_ids = default
+  # vpc_security_group_ids = default
 
   tags = {
     Name = "Learning Terraform"
