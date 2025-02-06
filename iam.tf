@@ -44,6 +44,7 @@ resource "aws_iam_instance_profile" "tf_docker_role" {
   role = aws_iam_role.tf_docker_role.name
 }
 
+#S3
 resource "aws_iam_role_policy" "s3_tf_docker_role_policy" {
   name = "s3_tf_docker_role_policy"
   role = aws_iam_role.tf_docker_role.name
@@ -59,6 +60,26 @@ resource "aws_iam_role_policy" "s3_tf_docker_role_policy" {
   })
 }
 
+data "aws_iam_policy_document" "s3_tf_docker_role_policy" {
+  statement {
+    # sid = "1"
+
+    actions = [
+      "s3:GetObject",
+      "s3:ListBucket",
+    ]
+    resources = [
+      "arn:aws:s3:::dev-tf-docker-compose-test1",
+    ]
+  }
+}
+resource "aws_iam_policy" "s3_tf_docker_role_policy" {
+  name   = "s3_tf_docker_role_policy"
+  path   = "/"
+  policy = data.aws_iam_policy_document.s3_tf_docker_role_policy.json
+}
+
+#ECR
 resource "aws_iam_role_policy" "ecr_tf_docker_role_policy" {
   name = "ecr_tf_docker_role_policy"
   role = aws_iam_role.tf_docker_role.name
