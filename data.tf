@@ -1,7 +1,9 @@
 data "template_file" "docker_compose" {
   template = file("cloud_config.tpl")
   vars = {
-    url = module.docker_ecr_repo.repository_url
+    ALPINE_IMAGE = "${module.docker_ecr_repo.repository_url}/dev-docker-ecr-repo:latest",
+    REGION       = var.region,
+    ECR_URL      = module.docker_ecr_repo.repository_url
   }
 }
 

@@ -4,7 +4,7 @@ write_files:
         version: '3'
         services:
             alpine:
-              image: "var.url"
+              image: ${ALPINE_IMAGE}
               ports: 
                 - 80:80
    path: /opt/docker-compose.yml
@@ -18,5 +18,5 @@ runcmd:
  - sudo usermod -a -G docker ec2-user 
  - sudo chkconfig docker on
  - sudo chown $(whoami):$(whoami) /var/run/docker.sock
- - aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 992382655760.dkr.ecr.eu-north-1.amazonaws.com
+ - aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ECR_URL}
  - docker-compose -f /opt/docker-compose.yml up -d
