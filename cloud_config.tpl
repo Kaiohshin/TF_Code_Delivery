@@ -6,7 +6,7 @@ write_files:
             alpine:
               image: ${ALPINE_IMAGE}
               ports: 
-                - 80:80
+                - 3000:3000
    path: /opt/docker-compose.yml
 runcmd:
  - sudo yum update -y
