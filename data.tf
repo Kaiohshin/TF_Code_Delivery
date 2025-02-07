@@ -8,7 +8,7 @@ data "template_file" "docker_compose" {
 }
 
 data "aws_ssm_parameter" "my_amzn_linux_ami" {
-  name = "amazon/al2023-ami-2023.6.20250203.1-kernel-6.1-x86_64"
+  name = "al2023-ami-2023.6.20250203.1-kernel-6.1-x86_64"
 }
 
 data "aws_iam_policy" "ssm_core" {
